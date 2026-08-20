@@ -5,6 +5,16 @@ import jwt from "jsonwebtoken";
 
 const JWT_SECRET = process.env.JWT_SECRET || "portfolio-admin-secret-key-2024";
 
+async function retry(fn, retries = 2, delayMs = 300) {
+  try {
+    return await fn();
+  } catch (error) {
+    if (retries <= 0) throw error;
+    await new Promise((resolve) => setTimeout(resolve, delayMs));
+    return retry(fn, retries - 1, delayMs * 2);
+  }
+}
+
 export async function POST(request) {
   try {
     const { username, password } = await request.json();
@@ -16,9 +26,11 @@ export async function POST(request) {
       );
     }
 
-    const admin = await prisma.admin.findUnique({
-      where: { username },
-    });
+    const admin = await retry(() =>
+      prisma.admin.findUnique({
+        where: { username },
+      })
+    );
 
     if (!admin) {
       return NextResponse.json(

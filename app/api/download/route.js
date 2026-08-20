@@ -45,6 +45,34 @@ function parseGithubReleaseUrl(url) {
   return null;
 }
 
+function parseUserAgent(ua) {
+  if (!ua || typeof ua !== "string") {
+    return { browser: "Unknown", os: "Unknown", deviceType: "Unknown" };
+  }
+
+  const lower = ua.toLowerCase();
+
+  let browser = "Unknown";
+  if (lower.includes("edg/") || lower.includes("edge/")) browser = "Edge";
+  else if (lower.includes("opr/") || lower.includes("opera")) browser = "Opera";
+  else if (lower.includes("chrome/") && !lower.includes("edg/")) browser = "Chrome";
+  else if (lower.includes("firefox/")) browser = "Firefox";
+  else if (lower.includes("safari/") && !lower.includes("chrome/")) browser = "Safari";
+
+  let os = "Unknown";
+  if (lower.includes("windows")) os = "Windows";
+  else if (lower.includes("android")) os = "Android";
+  else if (lower.includes("iphone") || lower.includes("ipad")) os = "iOS";
+  else if (lower.includes("mac os") || lower.includes("macintosh")) os = "macOS";
+  else if (lower.includes("linux")) os = "Linux";
+
+  let deviceType = "Desktop";
+  if (lower.includes("mobile") || lower.includes("android") || lower.includes("iphone")) deviceType = "Mobile";
+  else if (lower.includes("tablet") || lower.includes("ipad")) deviceType = "Tablet";
+
+  return { browser, os, deviceType };
+}
+
 async function fetchWithTimeout(url, options = {}, timeoutMs = 15000) {
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), timeoutMs);
@@ -292,6 +320,8 @@ export async function POST(request) {
       request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ||
       request.headers.get("x-real-ip") ||
       "";
+    const country = request.headers.get("x-vercel-ip-country") || null;
+    const { browser, os, deviceType } = parseUserAgent(ua);
 
     const claimed = await prisma.$transaction(async (tx) => {
       const updated = await tx.license.updateMany({
@@ -310,10 +340,11 @@ export async function POST(request) {
           appId: app.id,
           versionId: versionModel.id,
           version: versionModel.version,
-          browser: "Unknown",
-          os: "Unknown",
-          deviceType: "Unknown",
-          ip,
+          browser: browser || null,
+          os: os || null,
+          deviceType: deviceType || null,
+          ip: ip || null,
+          country: country || null,
         },
       });
       return true;

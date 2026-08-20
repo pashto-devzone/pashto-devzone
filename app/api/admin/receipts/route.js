@@ -147,6 +147,7 @@ export async function POST(request) {
         receiptNumber: number,
         customerId: customer.id,
         appId: app ? app.id : null,
+        projectName: project || null,
         price: priceVal,
         amountPaid: priceVal,
         remaining: 0,

@@ -33,12 +33,12 @@ export default function AdminDashboard() {
   }
 
   const cards = [
-    { label: "Total Applications", value: stats.totalApps, icon: <FaCubes />, color: "bg-purple-500" },
-    { label: "Total Versions", value: stats.totalVersions, icon: <FaCodeBranch />, color: "bg-green-500" },
-    { label: "Generated Licenses", value: stats.totalLicenses, icon: <FaKey />, color: "bg-amber-500" },
-    { label: "Total Receipts", value: stats.totalReceipts, icon: <FaReceipt />, color: "bg-indigo-500" },
-    { label: "Total Downloads", value: stats.totalDownloads, icon: <FaDownload />, color: "bg-teal-500" },
-    { label: "Total Revenue", value: stats.totalRevenue.toLocaleString(), icon: <FaMoneyBillWave />, color: "bg-emerald-500" },
+    { label: "Total Applications", value: (stats.totalApps ?? 0).toLocaleString(), icon: <FaCubes />, color: "bg-purple-500" },
+    { label: "Total Versions", value: (stats.totalVersions ?? 0).toLocaleString(), icon: <FaCodeBranch />, color: "bg-green-500" },
+    { label: "Generated Licenses", value: (stats.totalLicenses ?? 0).toLocaleString(), icon: <FaKey />, color: "bg-amber-500" },
+    { label: "Total Receipts", value: (stats.totalReceipts ?? 0).toLocaleString(), icon: <FaReceipt />, color: "bg-indigo-500" },
+    { label: "Total Downloads", value: (stats.totalDownloads ?? 0).toLocaleString(), icon: <FaDownload />, color: "bg-teal-500" },
+    { label: "Total Revenue", value: (stats.totalRevenue ?? 0).toLocaleString(), icon: <FaMoneyBillWave />, color: "bg-emerald-500" },
   ];
 
   const formatDate = (d) => {
@@ -82,7 +82,7 @@ export default function AdminDashboard() {
                 <div key={r.id} className="border border-gray-100 rounded-lg p-3">
                   <div className="flex items-center justify-between">
                     <span className="font-mono text-xs font-medium">{r.receiptNumber}</span>
-                    <span className="text-sm font-semibold text-green-700">{r.price.toLocaleString()}</span>
+                    <span className="text-sm font-semibold text-green-700">{(r.price ?? 0).toLocaleString()}</span>
                   </div>
                   <p className="text-xs text-gray-500 mt-1">{r.customer?.name}</p>
                   <p className="text-xs text-gray-400">{formatDate(r.createdAt)}</p>

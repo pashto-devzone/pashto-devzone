@@ -3,8 +3,8 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
-  url      = "file:./dev.db"
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
 model Admin {
@@ -14,9 +14,9 @@ model Admin {
 }
 
 model App {
-  id                 Int          @id @default(autoincrement())
+  id                 Int           @id @default(autoincrement())
   name               String
-  slug               String       @unique
+  slug               String        @unique
   description        String?
   shortDescription   String?
   category           String?
@@ -25,15 +25,15 @@ model App {
   screenshots        String?
   systemRequirements String?
   logo               String?
-  active             Boolean      @default(true)
-  licenseRequired    Boolean      @default(true)
-  createdAt          DateTime     @default(now())
-  updatedAt          DateTime     @updatedAt
+  active             Boolean       @default(true)
+  licenseRequired    Boolean       @default(true)
+  createdAt          DateTime      @default(now())
+  updatedAt          DateTime      @updatedAt
   versions           AppVersion[]
+  downloads          DownloadLog[]
   licenses           License[]
   orders             Order[]
   receipts           Receipt[]
-  downloads          DownloadLog[]
   reviews            Review[]
 }
 
@@ -58,47 +58,47 @@ model AppVersion {
   latest       Boolean       @default(false)
   createdAt    DateTime      @default(now())
   app          App           @relation(fields: [appId], references: [id], onDelete: Cascade)
-  licenses     License[]
   downloads    DownloadLog[]
+  licenses     License[]
 }
 
 model Customer {
-  id          Int            @id @default(autoincrement())
-  name        String
-  phone       String?
-  whatsapp    String?
-  email       String?
-  country     String?
-  city        String?
-  company     String?
-  notes       String?
-  createdAt   DateTime       @default(now())
-  updatedAt   DateTime       @updatedAt
-  orders      Order[]
-  receipts    Receipt[]
-  licenses    License[]
-  downloads   DownloadLog[]
+  id        Int           @id @default(autoincrement())
+  name      String
+  phone     String?
+  whatsapp  String?
+  email     String?
+  country   String?
+  city      String?
+  company   String?
+  notes     String?
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+  downloads DownloadLog[]
+  licenses  License[]
+  orders    Order[]
+  receipts  Receipt[]
 }
 
 model Order {
-  id             Int          @id @default(autoincrement())
-  orderNumber    String       @unique
+  id             Int       @id @default(autoincrement())
+  orderNumber    String    @unique
   customerId     Int
-  orderType      String       @default("PRE_BUILT") // PRE_BUILT | CUSTOM
+  orderType      String    @default("PRE_BUILT")
   appId          Int?
   projectName    String?
   description    String?
-  price          Float        @default(0)
-  advance        Float        @default(0)
-  remaining      Float        @default(0)
-  status         String       @default("PENDING") // PENDING | IN_PROGRESS | COMPLETED | CANCELLED
-  paymentStatus  String       @default("PENDING") // PENDING | PARTIAL | PAID
-  createdAt      DateTime     @default(now())
+  price          Float     @default(0)
+  advance        Float     @default(0)
+  remaining      Float     @default(0)
+  status         String    @default("PENDING")
+  paymentStatus  String    @default("PENDING")
+  createdAt      DateTime  @default(now())
   completionDate DateTime?
-  customer       Customer     @relation(fields: [customerId], references: [id], onDelete: Restrict)
-  app            App?         @relation(fields: [appId], references: [id], onDelete: SetNull)
-  receipts       Receipt[]
   licenses       License[]
+  app            App?      @relation(fields: [appId], references: [id])
+  customer       Customer  @relation(fields: [customerId], references: [id])
+  receipts       Receipt[]
 }
 
 model Receipt {
@@ -107,6 +107,7 @@ model Receipt {
   customerId       Int
   orderId          Int?
   appId            Int?
+  projectName      String?
   price            Float           @default(0)
   amountPaid       Float           @default(0)
   remaining        Float           @default(0)
@@ -117,16 +118,16 @@ model Receipt {
   issueDate        DateTime        @default(now())
   notes            String?
   createdAt        DateTime        @default(now())
-  customer         Customer        @relation(fields: [customerId], references: [id], onDelete: Restrict)
-  order            Order?          @relation(fields: [orderId], references: [id], onDelete: SetNull)
-  app              App?            @relation(fields: [appId], references: [id], onDelete: SetNull)
-  paymentAccount   PaymentAccount? @relation(fields: [paymentAccountId], references: [id], onDelete: SetNull)
+  app              App?            @relation(fields: [appId], references: [id])
+  customer         Customer        @relation(fields: [customerId], references: [id])
+  order            Order?          @relation(fields: [orderId], references: [id])
+  paymentAccount   PaymentAccount? @relation(fields: [paymentAccountId], references: [id])
 }
 
 model PaymentAccount {
   id            Int       @id @default(autoincrement())
   accountName   String
-  bankType      String    @default("BANK") // BANK | EASYPAISA | JAZZCASH | OTHER
+  bankType      String    @default("BANK")
   accountHolder String?
   iban          String?
   accountNumber String?
@@ -140,42 +141,42 @@ model PaymentAccount {
 }
 
 model License {
-  id             Int          @id @default(autoincrement())
-  code           String       @unique
-  customerId     Int
-  appId          Int
-  orderId        Int?
-  versionId      Int?
-  version        String?
-  status         String       @default("UNUSED") // UNUSED | USED | EXPIRED
-  paymentStatus  String       @default("PENDING") // PENDING | PARTIAL | PAID
-  generatedBy    String?      @default("admin")
-  createdAt      DateTime     @default(now())
-  expiresAt      DateTime
-  usedAt         DateTime?
-  downloadCount  Int          @default(0)
-  customer       Customer     @relation(fields: [customerId], references: [id], onDelete: Restrict)
-  app            App          @relation(fields: [appId], references: [id], onDelete: Restrict)
-  order          Order?       @relation(fields: [orderId], references: [id], onDelete: SetNull)
-  versionModel   AppVersion?  @relation(fields: [versionId], references: [id], onDelete: SetNull)
-  downloads      DownloadLog[]
+  id            Int           @id @default(autoincrement())
+  code          String        @unique
+  customerId    Int
+  appId         Int
+  orderId       Int?
+  versionId     Int?
+  version       String?
+  status        String        @default("UNUSED")
+  paymentStatus String        @default("PENDING")
+  generatedBy   String?       @default("admin")
+  createdAt     DateTime      @default(now())
+  expiresAt     DateTime
+  usedAt        DateTime?
+  downloadCount Int           @default(0)
+  downloads     DownloadLog[]
+  app           App           @relation(fields: [appId], references: [id])
+  customer      Customer      @relation(fields: [customerId], references: [id])
+  order         Order?        @relation(fields: [orderId], references: [id])
+  versionModel  AppVersion?   @relation(fields: [versionId], references: [id])
 }
 
 model DownloadLog {
-  id             Int          @id @default(autoincrement())
-  customerId     Int?
-  licenseId      Int?
-  appId          Int?
-  versionId      Int?
-  version        String?
-  browser        String?
-  os             String?
-  deviceType     String?
-  ip             String?
-  country        String?
-  downloadedAt   DateTime     @default(now())
-  customer       Customer?    @relation(fields: [customerId], references: [id], onDelete: SetNull)
-  license        License?     @relation(fields: [licenseId], references: [id], onDelete: SetNull)
-  app            App?         @relation(fields: [appId], references: [id], onDelete: SetNull)
-  versionModel   AppVersion?  @relation(fields: [versionId], references: [id], onDelete: SetNull)
+  id           Int         @id @default(autoincrement())
+  customerId   Int?
+  licenseId    Int?
+  appId        Int?
+  versionId    Int?
+  version      String?
+  browser      String?
+  os           String?
+  deviceType   String?
+  ip           String?
+  country      String?
+  downloadedAt DateTime    @default(now())
+  app          App?        @relation(fields: [appId], references: [id])
+  customer     Customer?   @relation(fields: [customerId], references: [id])
+  license      License?    @relation(fields: [licenseId], references: [id])
+  versionModel AppVersion? @relation(fields: [versionId], references: [id])
 }

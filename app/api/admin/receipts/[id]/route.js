@@ -127,6 +127,7 @@ export async function PUT(request, { params }) {
     if (currency !== undefined) data.currency = currency;
     if (issueDate !== undefined) data.issueDate = new Date(issueDate);
     if (notes !== undefined) data.notes = notes;
+    if (projectName !== undefined) data.projectName = projectName ? String(projectName).trim() || null : null;
 
     const updated = await prisma.receipt.update({
       where: { id: receiptId },
