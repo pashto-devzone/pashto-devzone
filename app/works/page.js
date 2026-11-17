@@ -15,8 +15,15 @@ import End from '../components/End';
 export const metadata = {
   title: "Works | Pashto DevZone",
   description:
-    "View portfolio projects and web applications built by Pashto DevZone, including productivity and e-commerce software.",
-  keywords: ["projects", "portfolio", "web applications", "Pashto DevZone"],
+    "View portfolio projects and web applications built by Pashto DevZone, including productivity, e-commerce, digital advertising and graphic design work.",
+  keywords: [
+    "projects",
+    "portfolio",
+    "web applications",
+    "digital advertising design",
+    "graphic design",
+    "Pashto DevZone",
+  ],
 };
 
 const page = () => {

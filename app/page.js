@@ -3,7 +3,7 @@ import Hero from "./components/Hero";
 import Skills from "./components/Skills";
 import Resume from "./components/Resume";
 import Work from "./components/Work";
-import SoftwareSection from "./components/app/SoftwareSection";
+// import SoftwareSection from "./components/app/SoftwareSection";
 import {
   FaLinkedin,
   FaGithub,
@@ -87,7 +87,7 @@ export default function Home() {
 
             <Work/>
 
-            <SoftwareSection/>
+            {/* <SoftwareSection /> */}
 
           
             <End/>

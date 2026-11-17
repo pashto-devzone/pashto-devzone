@@ -27,9 +27,17 @@ import {
   SiVercel,
   SiNetlify,
   SiGit,
+  SiCanva,
+  SiCoreldraw,
+  SiFigma,
 } from "react-icons/si";
 import Entrance from "../components/Entrance";
-import { TbBrandVercel } from "react-icons/tb";
+import {
+  TbBrandAdobeIllustrator,
+  TbBrandAdobeIndesign,
+  TbBrandAdobePhotoshop,
+  TbBrandVercel,
+} from "react-icons/tb";
 import End from "../components/End";
 
 export const metadata = {
@@ -179,8 +187,8 @@ const page = () => {
               {/* ================= TOOLS & DEPLOYMENT ================= */}
               <div className="bg-[#F6F6F7] p-8 md:p-10 rounded-xl">
                 <p className="text-black text-sm md:text-base mb-6">
-                  Tools, version control and deployment platforms I use in
-                  development workflow
+                  Design software, tools, version control and deployment
+                  platforms I use in my workflow
                 </p>
 
                 <div className="flex flex-wrap gap-6 text-4xl">
@@ -191,6 +199,21 @@ const page = () => {
                     { icon: <SiPostman />, name: "Postman" },
                     { icon: <SiVercel />, name: "Vercel" },
                     { icon: <SiNetlify />, name: "Netlify" },
+                    {
+                      icon: <TbBrandAdobePhotoshop />,
+                      name: "Adobe Photoshop",
+                    },
+                    {
+                      icon: <TbBrandAdobeIllustrator />,
+                      name: "Adobe Illustrator",
+                    },
+                    {
+                      icon: <TbBrandAdobeIndesign />,
+                      name: "Adobe InDesign",
+                    },
+                    { icon: <SiFigma />, name: "Figma" },
+                    { icon: <SiCanva />, name: "Canva" },
+                    { icon: <SiCoreldraw />, name: "CorelDRAW" },
                   ].map((tech, i) => (
                     <div key={i} className="group relative cursor-pointer">
                       <div className="text-black grayscale group-hover:grayscale-0 group-hover:scale-125 transition-all duration-300">

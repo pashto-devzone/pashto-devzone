@@ -60,9 +60,9 @@ const Work = () => {
 
                 {/* Overlay */}
                 <div
-                  className="absolute left-0 bottom-0 w-full h-[40%] 
+                  className="absolute left-0 bottom-0 w-full h-[40%]
                   bg-black/60 text-white p-4
-                  translate-y-full 
+                  translate-y-full
                   group-hover:translate-y-0
                   transition-all duration-500 ease-in-out"
                 >
@@ -95,9 +95,9 @@ const Work = () => {
 
                 {/* Overlay */}
                 <div
-                  className="absolute left-0 bottom-0 w-full h-[40%] 
+                  className="absolute left-0 bottom-0 w-full h-[40%]
                   bg-black/60 text-white p-4
-                  translate-y-full 
+                  translate-y-full
                   group-hover:translate-y-0
                   transition-all duration-500 ease-in-out"
                 >
@@ -135,6 +135,114 @@ const Work = () => {
                   </p>
                 </div>
               </div></a>
+            </div>
+          </div>
+        </div>
+
+        <div className="web flex flex-col gap-4 mb-3">
+          <div>
+            <h2 className="text-xl md:text-2xl font-bold">Digital Advertising &amp; Graphic Design</h2>
+          </div>
+          <div className="projects flex flex-col md:flex-row justify-center items-center md:mr-12 gap-8">
+            <div className="project_card scroll-reveal-animation hover:-translate-y-2 shadow-2xl transition-all">
+              <div className="img relative group w-fit overflow-hidden rounded-lg">
+                <Image
+                  src="/work_business_card.png"
+                  alt="Black and ivory luxury business card design with a gold monogram"
+                  width={585}
+                  height={329}
+                  className="cursor-pointer rounded-lg"
+                />
+
+                <div
+                  className="absolute left-0 bottom-0 w-full h-[40%]
+                  bg-black/60 text-white p-4
+                  translate-y-full
+                  group-hover:translate-y-0
+                  transition-all duration-500 ease-in-out"
+                >
+                  <h3 className="text-lg font-bold">Business Card Design</h3>
+                  <p className="text-sm opacity-80">
+                    Luxury two-sided business card with a gold foil monogram and a refined serif and sans-serif type pairing.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div className="project_card scroll-reveal-animation hover:-translate-y-2 shadow-2xl transition-all">
+              <div className="img relative group w-fit overflow-hidden rounded-lg">
+                <Image
+                  src="/work_flyer.png"
+                  alt="Retro sunset music festival poster and lineup flyer design"
+                  width={585}
+                  height={329}
+                  className="cursor-pointer rounded-lg"
+                />
+
+                <div
+                  className="absolute left-0 bottom-0 w-full h-[40%]
+                  bg-black/60 text-white p-4
+                  translate-y-full
+                  group-hover:translate-y-0
+                  transition-all duration-500 ease-in-out"
+                >
+                  <h3 className="text-lg font-bold">Event Flyer Design</h3>
+                  <p className="text-sm opacity-80">
+                    Festival poster and lineup flyer with a retro sunset illustration and bold typography.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="projects flex flex-col md:flex-row justify-center items-center md:mr-12 gap-8">
+            <div className="project_card scroll-reveal-animation hover:-translate-y-2 shadow-2xl transition-all">
+              <div className="img relative group w-fit overflow-hidden rounded-lg">
+                <Image
+                  src="/work_branding_logo.png"
+                  alt="Brand identity board with gold logo, color palette and typography"
+                  width={585}
+                  height={329}
+                  className="cursor-pointer rounded-lg"
+                />
+
+                <div
+                  className="absolute left-0 bottom-0 w-full h-[40%]
+                  bg-black/60 text-white p-4
+                  translate-y-full
+                  group-hover:translate-y-0
+                  transition-all duration-500 ease-in-out"
+                >
+                  <h3 className="text-lg font-bold">Brand Identity and Logo</h3>
+                  <p className="text-sm opacity-80">
+                    Complete brand identity board with logo, color palette, typography, logo variations and application mockups.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div className="project_card scroll-reveal-animation hover:-translate-y-2 shadow-2xl transition-all">
+              <div className="img relative group w-fit overflow-hidden rounded-lg">
+                <Image
+                  src="/work_minimal_design.png"
+                  alt="Minimalist perfume advertisement with a large serif headline"
+                  width={585}
+                  height={329}
+                  className="cursor-pointer rounded-lg"
+                />
+
+                <div
+                  className="absolute left-0 bottom-0 w-full h-[40%]
+                  bg-black/60 text-white p-4
+                  translate-y-full
+                  group-hover:translate-y-0
+                  transition-all duration-500 ease-in-out"
+                >
+                  <h3 className="text-lg font-bold">Minimalist Product Ad</h3>
+                  <p className="text-sm opacity-80">
+                    Minimalist product advertisement with a clean layout, generous white space and a clear call to action.
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
         </div>

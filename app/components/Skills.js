@@ -26,7 +26,13 @@ const Skills = () => {
             <p>
               I build modern client-side applications using HTML, CSS, Tailwind
               CSS, JavaScript, React.js, and Redux, focusing on clean code and
-              smooth, responsive user experiences.
+              smooth, responsive user experiences. My digital advertising
+              design skills include social media creatives, display and banner
+              ads, logo and brand identity design, flyers, posters and print
+              design, business card design, typography and layout, color
+              theory, motion graphics for animated ads and banners, ad creative
+              optimization through A/B testing, and Meta Ads and Google Ads
+              creative specs.
             </p>
             <Link href="/works">
             <button className="relative inline-flex items-center overflow-hidden cursor-pointer rounded-full px-4 py-4 font-bold group">

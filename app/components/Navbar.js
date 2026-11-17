@@ -17,7 +17,7 @@ import {
   FaWhatsapp,
   FaYoutube,
   FaHashtag,
-  FaRocket,
+  // FaRocket,
 } from "react-icons/fa";
 
 export default function Navbar() {
@@ -25,7 +25,7 @@ export default function Navbar() {
   const pathname = usePathname();
 
   const navItems = [
-    { name: "Apps", path: "/apps", icon: <FaRocket /> },
+    // { name: "Apps", path: "/apps", icon: <FaRocket /> },
     { name: "Works", path: "/works", icon: <FaBriefcase /> },
     { name: "Resume", path: "/resume", icon: <FaFileAlt /> },
     { name: "Contact", path: "/contact", icon: <FaPhone /> },
